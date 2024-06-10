@@ -8,19 +8,20 @@ on:
   # this specific branch (a.k.a. book chapter).
   push:
     branches:
-      - root-chapter-03-part1
+      - main
   pull_request:
     types: [ opened, synchronize, reopened ]
     branches:
-      - root-chapter-03-part1
+      - main
 
 env:
   CARGO_TERM_COLOR: always
   SQLX_VERSION: 0.7.1
   SQLX_FEATURES: "rustls,postgres"
 
-# A workflow run is made up of one or more jobs, which run in parallel by default
-# Each job runs in a runner environment specified by runs-on
+# A workflow run is made up of one or more jobs, which run in
+# parallel by default. Each job runs in a runner environment
+# specified by `runs-on`
 jobs:
   # Unique identifier of our job (`job_id`)
   test:
@@ -82,7 +83,6 @@ jobs:
       - name: Run tests
         run: cargo test
 
-  # `fmt` container job
   fmt:
     name: Rustfmt
     runs-on: ubuntu-latest
@@ -95,7 +95,6 @@ jobs:
       - name: Enforce formatting
         run: cargo fmt --check
 
-  # `clippy` container job
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
@@ -130,7 +129,6 @@ jobs:
       - name: Linting
         run: cargo clippy -- -D warnings
 
-  # `coverage` container job
   coverage:
     name: Code coverage
     runs-on: ubuntu-latest
